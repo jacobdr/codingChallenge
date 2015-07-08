@@ -5,10 +5,13 @@ import unittest
 import pytest
 # from collections import Counter
 
+# pylint: disable=W391
 
 from codingChallenge.unique_words import UniqueWords
+from codingChallenge.median_unique import MedianCalculator
 
 # CONSTANTS
+# TESTING_DIRECTORY_ABS_PATH = os.path.dirname(os.path.realpath("__file__"))
 TESTING_DIRECTORY_ABS_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -47,8 +50,36 @@ def insight_github_unique_word_results():
 
 
 class TestUniqueWords(unittest.TestCase):
+    """
+    Tests for the first feature ("ft1") case
+    """
     def test_insight_github_unique_all_tweets(self):
         counting_machine = UniqueWords()
         word_count = counting_machine.count_unique(
             original_three_tweets())
         assert word_count == insight_github_unique_word_results()
+
+
+class TestMedianCount(unittest.TestCase):
+    """
+    Tests for the second feature ("ft2") case
+    """
+    all_three_input_tweets = original_three_tweets()
+    case1 = all_three_input_tweets[0]
+    case2 = all_three_input_tweets[0:2]
+    case3 = all_three_input_tweets
+
+    case1_test = MedianCalculator(case1)
+    assert case1_test.populate_median_list()[-1] == 11
+
+    case2_test = MedianCalculator(case2)
+    assert case2_test.populate_median_list()[-1] == 12.5
+
+    case3_test = MedianCalculator(case3)
+    assert case3_test.populate_median_list()[-1] == 14
+
+
+
+
+
+
