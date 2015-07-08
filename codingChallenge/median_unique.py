@@ -1,3 +1,7 @@
+
+from codingChallenge import utils
+
+
 class MedianCalculator(object):
     """
     Class used to abstract the calculation of the median
@@ -23,7 +27,8 @@ class MedianCalculator(object):
         self.num_unique_words_sorted = sorted(self.num_unique_words_sorted)
 
     def populate_median_list(self):
-        for tweet in self.tweet_iterable:
+        for dirty_tweet in self.tweet_iterable:
+            tweet = utils.clean_tweet(dirty_tweet)
             self.append_to_unique_word_list(tweet)
             current_number_of_tweets = len(self.num_unique_words_sorted)
             # Condition if odd amount
