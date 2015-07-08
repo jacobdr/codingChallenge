@@ -2,8 +2,14 @@ class MedianCalculator(object):
     """
     Class used to abstract the calculation of the median
     """
-    def __init__(self, tweet_iterable):
-        self.tweet_iterable = tweet_iterable
+    def __init__(self, tweet_input):
+        self.tweet_iterable = []
+        # Handle the edge case where a single tweet is supplied as a string,
+        # not an array iterable
+        if type(tweet_input) == str:
+            self.tweet_iterable = [tweet_input]
+        else:
+            self.tweet_iterable = tweet_input
         self.num_unique_words_sorted = []
         self.median_list = []
 
