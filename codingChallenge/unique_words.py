@@ -1,6 +1,24 @@
-def count_unique(input_tweet_array):
+from collections import Counter
+from operator import itemgetter
+
+
+class UniqueWords():
     """
-    This is the function documentation
+    Class container for the functions related to coungint the number of unique
+    words as Tweets arrive
     """
-    print "Function is running..."
-    return 1
+    def count_unique(self, input_tweet_array):
+        """
+        This is the function documentation
+        """
+        count_container = Counter()
+        for tweet in input_tweet_array:
+            count_container = count_container + Counter(tweet.split(" "))
+
+        sorted_count_dictionary = dict(sorted(count_container.items(),
+                                       key=itemgetter(0)))
+
+        # Remove edge cases of blank string or space string
+        sorted_count_dictionary.pop(' ', None)
+        sorted_count_dictionary.pop('', None)
+        return sorted_count_dictionary
