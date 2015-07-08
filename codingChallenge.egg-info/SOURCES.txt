@@ -1,0 +1,5 @@
+setup.cfg
+codingChallenge.egg-info/PKG-INFO
+codingChallenge.egg-info/SOURCES.txt
+codingChallenge.egg-info/dependency_links.txt
+codingChallenge.egg-info/top_level.txt
