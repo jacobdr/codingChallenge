@@ -2,7 +2,7 @@ from collections import Counter
 from operator import itemgetter
 
 
-class UniqueWords(object):
+class UniqueWordsCalculator(object):
     """
     Class container for the functions related to coungint the number of unique
     words as Tweets arrive

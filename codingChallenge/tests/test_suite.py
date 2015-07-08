@@ -3,12 +3,16 @@ import os
 # import sys
 import unittest
 import pytest
+import filecmp
+import shutil
 # from collections import Counter
 
 # pylint: disable=W391
 
-from codingChallenge.unique_words import UniqueWords
+from codingChallenge.unique_words import UniqueWordsCalculator
 from codingChallenge.median_unique import MedianCalculator
+from codingChallenge.dispatcher import Dispatcher
+from codingChallenge import constants
 
 # CONSTANTS
 # TESTING_DIRECTORY_ABS_PATH = os.path.dirname(os.path.realpath("__file__"))
@@ -49,12 +53,31 @@ def insight_github_unique_word_results():
     return counter_container
 
 
+@pytest.fixture(scope="class")
+def sessiondir(request):
+    session_path = os.path.join(constants.TEST_DIRECTORY, "fixtures",
+                                "tmpOutput")
+    os.mkdir(session_path)
+
+    def fin():
+        shutil.rmtree(session_path)
+    request.addfinalizer(fin)
+    return session_path
+
+
+@pytest.fixture(scope="class")
+def run_dispathcer(sessiondir):
+    job_manager = Dispatcher(sessiondir)
+    job_manager.run_jobs()
+    return job_manager
+
+
 class TestUniqueWords(unittest.TestCase):
     """
     Tests for the first feature ("ft1") case
     """
     def test_insight_github_unique_all_tweets(self):
-        counting_machine = UniqueWords()
+        counting_machine = UniqueWordsCalculator()
         word_count = counting_machine.count_unique(
             original_three_tweets())
         assert word_count == insight_github_unique_word_results()
@@ -77,6 +100,41 @@ class TestMedianCount(unittest.TestCase):
 
     case3_test = MedianCalculator(case3)
     assert case3_test.populate_median_list()[-1] == 14
+
+
+@pytest.mark.usefixtures("run_dispathcer")
+@pytest.mark.usefixtures("sessiondir")
+class TestDispatcher(unittest.TestCase):
+    """
+    Tests for correct input + output to the filesystem
+    """
+
+    # Compare the number of files
+    def test_num_files(self, run_dispathcer, sessiondir):
+        assert os.listdir(sessiondir) == 2
+
+    # Compare the content of the files
+    def test_ft1_file_contents_equality(self, run_dispathcer, sessiondir):
+        ft1_test_fixture_path = os.path.join(constants.TEST_DIRECTORY,
+                                             "fixtures",
+                                             "tweet_output",
+                                             "ft1.txt")
+
+        ft1_dispath_result_path = os.path.join(sessiondir,
+                                               "ft1.txt")
+        assert True == filecmp.cmp(ft1_test_fixture_path,
+                                   ft1_dispath_result_path)
+
+    def test_ft2_file_contents_equality(self, run_dispathcer, sessiondir):
+        ft2_test_fixture_path = os.path.join(constants.TEST_DIRECTORY,
+                                             "fixtures",
+                                             "tweet_output",
+                                             "ft2.txt")
+
+        ft2_dispath_result_path = os.path.join(sessiondir,
+                                               "ft2.txt")
+        assert True == filecmp.cmp(ft2_test_fixture_path,
+                                   ft2_dispath_result_path)
 
 
 
