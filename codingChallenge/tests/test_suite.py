@@ -56,7 +56,7 @@ def insight_github_unique_word_results():
 def sessiondir():
     session_path = os.path.join(constants.TEST_DIRECTORY, "fixtures",
                                 "tmpOutput")
-    os.mkdir(session_path)
+    os.makedirs(session_path)
 
     return session_path
 
