@@ -3,6 +3,7 @@ env/
 *.egg-info/
 dist/
 build/
+benchmark/data/
 
 
 # Byte-compiled / optimized / DLL files
