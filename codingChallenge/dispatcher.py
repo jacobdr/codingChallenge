@@ -37,8 +37,8 @@ class Dispatcher(object):
                 words_writer = csv.writer(ft1_output, delimiter=' ',
                                           lineterminator="\n")
                 list_of_unique_words = UniqueWordsCalculator(tweet_file).run()
-                for word in list_of_unique_words:
-                    words_writer.writerow(word)
+                for item in list_of_unique_words:
+                    words_writer.writerow(item)
 
     def run_MedianCalculator(self):
         """
