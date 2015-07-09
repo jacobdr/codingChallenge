@@ -1,9 +1,7 @@
-"#analytics
-" 1
+#analytics 1
 #bigdata 3
 #kdn 1
-"#smb
-" 1
+#smb 1
 @cxotodayalerts 1
 @lavanyarathnam 1
 and 1
@@ -23,8 +21,7 @@ healthcare 1
 how 1
 http://bddy.me/1bzukb3 1
 http://ow.ly/o8gt3 1
-"http://ow.ly/ot2uj
-" 1
+http://ow.ly/ot2uj 1
 interview: 1
 is 3
 just 1

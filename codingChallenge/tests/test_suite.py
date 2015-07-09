@@ -8,6 +8,7 @@ import shutil
 from collections import OrderedDict
 from operator import itemgetter
 from collections import Counter
+import difflib
 
 # pylint: disable=W391
 
@@ -15,10 +16,6 @@ from codingChallenge.unique_words import UniqueWordsCalculator
 from codingChallenge.median_unique import MedianCalculator
 from codingChallenge.dispatcher import Dispatcher
 from codingChallenge import constants
-
-# CONSTANTS
-# TESTING_DIRECTORY_ABS_PATH = os.path.dirname(os.path.realpath("__file__"))
-TESTING_DIRECTORY_ABS_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 @pytest.fixture(scope="class")
@@ -65,8 +62,8 @@ def sessiondir():
 
 
 @pytest.fixture()
-def run_dispathcer(path):
-    job_manager = Dispatcher(path)
+def run_dispathcer(input_path, output_path):
+    job_manager = Dispatcher(input_path, output_path)
     job_manager.run_jobs()
     return job_manager
 
@@ -113,8 +110,10 @@ class TestDispatcher(unittest.TestCase):
     @classmethod
     @pytest.mark.usefixtures("run_dispathcer", "sessiondir")
     def setup_class(cls):
+        cls.input_dir = os.path.join(constants.TEST_DIRECTORY, "fixtures",
+                                     "tweet_input", "tweets.txt")
         cls.output_dir = sessiondir()
-        cls.dispatched = run_dispathcer(cls.output_dir)
+        cls.dispatched = run_dispathcer(cls.input_dir, cls.output_dir)
 
     @classmethod
     def teardown_class(cls):
@@ -132,8 +131,16 @@ class TestDispatcher(unittest.TestCase):
 
         ft1_dispath_result_path = os.path.join(TestDispatcher.output_dir,
                                                "ft1.txt")
-        assert True == filecmp.cmp(ft1_test_fixture_path,
-                                   ft1_dispath_result_path)
+        test_result = filecmp.cmp(ft1_test_fixture_path,
+                                  ft1_dispath_result_path, shallow=False)
+        assert test_result
+
+        # with open(ft1_test_fixture_path, 'r') as official_result,\
+        #         open(ft1_dispath_result_path) as computed_result:
+        #         diff = difflib.Differ()
+        #         differences = list(diff.compare(official_result.readlines(),
+        #                      computed_result.readlines()))
+        # assert len(differences) == 0
 
     def test_ft2_file_contents_equality(self):
         ft2_test_fixture_path = os.path.join(constants.TEST_DIRECTORY,
@@ -143,8 +150,17 @@ class TestDispatcher(unittest.TestCase):
 
         ft2_dispath_result_path = os.path.join(TestDispatcher.output_dir,
                                                "ft2.txt")
-        assert True == filecmp.cmp(ft2_test_fixture_path,
-                                   ft2_dispath_result_path)
+        test_result = filecmp.cmp(ft2_test_fixture_path,
+                                  ft2_dispath_result_path, shallow=False)
+        assert test_result
+
+        # with open(ft2_test_fixture_path, 'r') as official_result,\
+        #     open(ft2_dispath_result_path) as computed_result:
+        #         diff = difflib.Differ()
+        #         differences = list(diff.compare(official_result.readlines(),
+        #                            computed_result.readlines()))
+        #         assert len(differences) == 0
+
 
 
 
