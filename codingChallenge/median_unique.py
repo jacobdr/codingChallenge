@@ -47,3 +47,15 @@ class MedianCalculator(object):
 
         return self.median_list
 
+    def run(self):
+        """
+        Run methods necessary to return the array of medians.
+
+        The run method helps abstract away the calling of the methods so that
+        less refacotring is needed later on.
+        """
+        return self.populate_median_list()
+
+
+
+

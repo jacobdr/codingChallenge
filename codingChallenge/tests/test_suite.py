@@ -9,6 +9,7 @@ from collections import OrderedDict
 from operator import itemgetter
 from collections import Counter
 import difflib
+from pprint import pprint
 
 # pylint: disable=W391
 
@@ -56,6 +57,9 @@ def insight_github_unique_word_results():
 def sessiondir():
     session_path = os.path.join(constants.TEST_DIRECTORY, "fixtures",
                                 "tmpOutput")
+    if(os.path.exists(session_path)):
+        shutil.rmtree(session_path)
+
     os.makedirs(session_path)
 
     return session_path
@@ -133,14 +137,17 @@ class TestDispatcher(unittest.TestCase):
                                                "ft1.txt")
         test_result = filecmp.cmp(ft1_test_fixture_path,
                                   ft1_dispath_result_path, shallow=False)
+
+        differences = None
+        with open(ft1_test_fixture_path, 'r') as official_result,\
+                open(ft1_dispath_result_path) as computed_result:
+                diff = difflib.Differ()
+                differences = list(diff.compare(official_result.readlines(),
+                                   computed_result.readlines()))
         assert test_result
 
-        # with open(ft1_test_fixture_path, 'r') as official_result,\
-        #         open(ft1_dispath_result_path) as computed_result:
-        #         diff = difflib.Differ()
-        #         differences = list(diff.compare(official_result.readlines(),
-        #                      computed_result.readlines()))
-        # assert len(differences) == 0
+
+
 
     def test_ft2_file_contents_equality(self):
         ft2_test_fixture_path = os.path.join(constants.TEST_DIRECTORY,
@@ -152,14 +159,16 @@ class TestDispatcher(unittest.TestCase):
                                                "ft2.txt")
         test_result = filecmp.cmp(ft2_test_fixture_path,
                                   ft2_dispath_result_path, shallow=False)
+        differences = None
+        with open(ft2_test_fixture_path, 'r') as official_result,\
+            open(ft2_dispath_result_path) as computed_result:
+                diff = difflib.Differ()
+                differences = list(diff.compare(official_result.readlines(),
+                                   computed_result.readlines()))
+
         assert test_result
 
-        # with open(ft2_test_fixture_path, 'r') as official_result,\
-        #     open(ft2_dispath_result_path) as computed_result:
-        #         diff = difflib.Differ()
-        #         differences = list(diff.compare(official_result.readlines(),
-        #                            computed_result.readlines()))
-        #         assert len(differences) == 0
+
 
 
 
