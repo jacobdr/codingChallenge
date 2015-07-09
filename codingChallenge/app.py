@@ -5,7 +5,7 @@ from unique_words import UniqueWordsCalculator
 from median_unique import MedianCalculator
 from constants import MODULE_ROOT, PROJECT_ROOT, TEST_DIRECTORY
 from dispatcher import Dispatcher
-from utils import constants
+import constants
 
 if __name__ == "__main__":
     path_to_tweets_input = os.path.join(constants.PROJECT_ROOT,
