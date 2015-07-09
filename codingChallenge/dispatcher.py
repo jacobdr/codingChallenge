@@ -34,11 +34,11 @@ class Dispatcher(object):
         ft1_file_path = os.path.join(self.output_file_directory, "ft1.txt")
         with open(self.input_file_path, 'r') as tweet_file:
             with open(ft1_file_path, 'w') as ft1_output:
-                words_writer = csv.writer(ft1_output, delimiter=' ',
-                                          lineterminator="\n")
+                # words_writer = csv.writer(ft1_output, delimiter=' ',
+                                          # lineterminator="\n")
                 list_of_unique_words = UniqueWordsCalculator(tweet_file).run()
-                for item in list_of_unique_words:
-                    words_writer.writerow(item)
+                for word, count in list_of_unique_words:
+                    ft1_output.write(word + ' ' + str(count) + '\n')
 
     def run_MedianCalculator(self):
         """
