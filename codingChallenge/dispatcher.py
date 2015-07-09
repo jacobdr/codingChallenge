@@ -36,8 +36,7 @@ class Dispatcher(object):
             with open(ft1_file_path, 'w') as ft1_output:
                 words_writer = csv.writer(ft1_output, delimiter=' ',
                                           lineterminator="\n")
-                list_of_unique_words = UniqueWordsCalculator(tweet_file)\
-                    .run()
+                list_of_unique_words = UniqueWordsCalculator(tweet_file).run()
                 for word in list_of_unique_words:
                     words_writer.writerow(word)
 

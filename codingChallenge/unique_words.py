@@ -1,7 +1,7 @@
 from collections import Counter, OrderedDict
 from operator import itemgetter
 import tempfile
-
+import numpy as np
 from codingChallenge import utils
 
 
@@ -12,6 +12,7 @@ class UniqueWordsCalculator(object):
     """
     def __init__(self, tweet_iterable):
         self.tweet_iterable = tweet_iterable
+        # self.input_file_path = input_file_path
 
     def count_unique(self):
         """
@@ -43,10 +44,19 @@ class UniqueWordsCalculator(object):
             # Counter from it to get the unique items
             tmpfile.seek(0)
             count_container = Counter(tmpfile.read().splitlines())
-            sorted_count_dictionary = OrderedDict(sorted(
-                                                  count_container.items(),
-                                                  key=itemgetter(0)))
+
+            sorted_count_dictionary = OrderedDict(sorted(count_container.items(),
+                                              key=itemgetter(0)))
             return sorted_count_dictionary.items()
+
+    def numpy_count_unique(self):
+        tweet_array = np.genfromtxt(self.tweet_iterable, dtype=np.string_,
+                                    comments=False, delimiter="\n")
+        word_array = np.concatenate([tweet.split() for tweet in tweet_array])
+        word_count = Counter(word_array)
+        alphabetized_count = OrderedDict(sorted(word_count.items(), key=itemgetter(0)))
+        return alphabetized_count.items()
+
 
     def run(self):
         """
@@ -54,5 +64,5 @@ class UniqueWordsCalculator(object):
         easier. That way code in the Dispatcher doesn't need to be refactored
         """
         # return self.count_unique()
-        return self.counter_on_all_words()
+        return self.numpy_count_unique()
 
