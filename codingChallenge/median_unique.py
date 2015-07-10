@@ -61,6 +61,20 @@ class MedianCalculator(object):
                                                    np.median(running_list_of_uniques))
             return running_list_of_median
 
+    def revised_numpy_calculate_median(self):
+            tweet_array = np.genfromtxt(self.tweet_iterable, dtype=np.string_,
+                                        comments=False, delimiter="\n")
+            tweet_bag_of_words = np.array([tweet.split() for tweet in tweet_array])
+            all_uniques_count = np.empty(0)
+            running_median = np.empty(0)
+            for index, tweet in enumerate(tweet_bag_of_words):
+                filtered_tweet_length = np.unique(tweet).size
+                all_uniques_count = np.append(all_uniques_count,
+                                                    filtered_tweet_length)
+                running_median = np.append(running_median, np.median(all_uniques_count))
+
+            return running_median
+
     def run(self):
         """
         Run methods necessary to return the array of medians.
@@ -68,7 +82,7 @@ class MedianCalculator(object):
         The run method helps abstract away the calling of the methods so that
         less refacotring is needed later on.
         """
-        return self.numpy_calculate_median()
+        return self.revised_numpy_calculate_median()
 
 
 
