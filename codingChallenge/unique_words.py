@@ -61,16 +61,17 @@ class UniqueWordsCalculator(object):
         return alphabetized_count.items()
 
     def distributed_numpy_count_unique(self):
+
+        def worker(partial_words, lock, global_counter):
+            unique_counts = np.unique(partial_words, return_counts=True)
+            unique_dictionary = dict(zip(unique_counts[0], unique_counts[1]))
+            with lock:
+                global_counter.update(unique_dictionary)
+
         lock = threading.Lock()
         NUM_CORES = cpu_count()
         global_count_tracker = Counter()
         thread_list = []
-
-        def worker(test, lock, global_counter):
-            unique_counts = np.unique(test, return_counts=True)
-            unique_dictionary = dict(zip(unique_counts[0], unique_counts[1]))
-            with lock:
-                global_counter.update(unique_dictionary)
 
         tweet_array = np.genfromtxt(self.tweet_iterable, comments=False,
                                     dtype=np.string_,
