@@ -28,8 +28,8 @@ class Dispatcher(object):
 
         Creates an iterable from the tweets.txt input file, instantiates the
         UniqueWordsCalculator with this iterable, and then calls the objects
-        run method. Takes returned dictionary from run and writes it to "ft1.txt"
-        file
+        run method. Takes returned dictionary from run and writes it to
+        "ft1.txt" file
         """
         ft1_file_path = os.path.join(self.output_file_directory, "ft1.txt")
         with open(self.input_file_path, 'r') as tweet_file:

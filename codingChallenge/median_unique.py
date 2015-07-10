@@ -48,16 +48,18 @@ class MedianCalculator(object):
         return self.median_list
 
     def numpy_calculate_median(self):
-        tweet_array = np.genfromtxt(self.tweet_iterable, dtype=np.string_,
-                                    comments=False, delimiter="\n")
-        tweet_bag_of_words = np.array([tweet.split() for tweet in tweet_array])
-        running_list_of_uniques = []
-        running_list_of_median = []
-        for tweet in tweet_bag_of_words:
-            filtered_tweet = (np.unique(tweet))
-            running_list_of_uniques.append(len(filtered_tweet))
-            running_list_of_median.append(np.median(running_list_of_uniques))
-        return running_list_of_median
+            tweet_array = np.genfromtxt(self.tweet_iterable, dtype=np.string_,
+                                        comments=False, delimiter="\n")
+            tweet_bag_of_words = np.array([tweet.split() for tweet in tweet_array])
+            running_list_of_uniques = np.empty(0)
+            running_list_of_median = np.empty(0)
+            for tweet in tweet_bag_of_words:
+                filtered_tweet_length = np.unique(tweet).size
+                running_list_of_uniques = np.append(running_list_of_uniques,
+                                                    filtered_tweet_length)
+                running_list_of_median = np.append(running_list_of_median,
+                                                   np.median(running_list_of_uniques))
+            return running_list_of_median
 
     def run(self):
         """
