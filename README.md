@@ -9,8 +9,10 @@
 http://help.sentiment140.com/for-students
 
 ## Performance
-*  **v0.2**
-    -  Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/benchmark/stats
+Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/benchmark/stats  
+
+*  **v0.2:**
+
     -  1k_tweets:
         +  Dispatcher.run_jobs()
             *  Time: 15.016 seconds
@@ -22,3 +24,9 @@ http://help.sentiment140.com/for-students
     -  10k_tweets:
         +  Unable to run
     -  
+* **v0.3:**
+    -  1k_tweets:
+        +  Dispatcher.run_Unique
+            *  15.339 seconds
+    -  10K_tweets
+        +  
