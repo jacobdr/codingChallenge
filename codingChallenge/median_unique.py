@@ -1,4 +1,4 @@
-
+import numpy as np
 from codingChallenge import utils
 
 
@@ -47,6 +47,18 @@ class MedianCalculator(object):
 
         return self.median_list
 
+    def numpy_calculate_median(self):
+        tweet_array = np.genfromtxt(self.tweet_iterable, dtype=np.string_,
+                                    comments=False, delimiter="\n")
+        tweet_bag_of_words = np.array([tweet.split() for tweet in tweet_array])
+        running_list_of_uniques = []
+        running_list_of_median = []
+        for tweet in tweet_bag_of_words:
+            filtered_tweet = (np.unique(tweet))
+            running_list_of_uniques.append(len(filtered_tweet))
+            running_list_of_median.append(np.median(running_list_of_uniques))
+        return running_list_of_median
+
     def run(self):
         """
         Run methods necessary to return the array of medians.
@@ -54,7 +66,7 @@ class MedianCalculator(object):
         The run method helps abstract away the calling of the methods so that
         less refacotring is needed later on.
         """
-        return self.populate_median_list()
+        return self.numpy_calculate_median()
 
 
 
