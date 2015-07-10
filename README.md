@@ -28,5 +28,17 @@ Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/ben
     -  1k_tweets:
         +  Dispatcher.run_Unique
             *  15.339 seconds
-    -  10K_tweets
-        +  
+* **v0.4:**
+    - 100k_tweets
+        + Dispatcher.run_Median
+            * 119.033 seconds
+        + Dispatcher.run_Unique
+            * 18.454 seconds
+* **v0.5:**
+    - 100k_tweets
+    - Dispathcer.run_Median
+        + Dispathcer.run_Median
+
+
+
+
