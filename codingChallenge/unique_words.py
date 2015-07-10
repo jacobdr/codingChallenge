@@ -3,6 +3,9 @@ from operator import itemgetter
 import tempfile
 import numpy as np
 from codingChallenge import utils
+from threading import Thread
+import threading
+from multiprocessing import cpu_count
 
 
 class UniqueWordsCalculator(object):
@@ -57,6 +60,35 @@ class UniqueWordsCalculator(object):
         alphabetized_count = OrderedDict(sorted(word_count.items(), key=itemgetter(0)))
         return alphabetized_count.items()
 
+    def distributed_numpy_count_unique(self):
+
+        def worker(partial_words, lock, global_counter):
+            unique_counts = np.unique(partial_words, return_counts=True)
+            unique_dictionary = dict(zip(unique_counts[0], unique_counts[1]))
+            with lock:
+                global_counter.update(unique_dictionary)
+
+        lock = threading.Lock()
+        NUM_CORES = cpu_count()
+        global_count_tracker = Counter()
+        thread_list = []
+
+        tweet_array = np.genfromtxt(self.tweet_iterable, comments=False,
+                                    dtype=np.string_,
+                                    delimiter="\n")
+        word_array = np.concatenate([tweet.split() for tweet in tweet_array])
+
+        for number, split in enumerate(np.array_split(word_array, NUM_CORES)):
+            t = Thread(target=worker, args=(split, lock, global_count_tracker))
+            thread_list.append(t)
+            t.start()
+        for thread_instance in thread_list:
+            thread_instance.join()
+
+        alphabetized_count = OrderedDict(sorted(global_count_tracker.items(),
+                                         key=itemgetter(0)))
+        return alphabetized_count.items()
+
 
     def run(self):
         """
@@ -64,5 +96,5 @@ class UniqueWordsCalculator(object):
         easier. That way code in the Dispatcher doesn't need to be refactored
         """
         # return self.count_unique()
-        return self.numpy_count_unique()
+        return self.distributed_numpy_count_unique()
 
