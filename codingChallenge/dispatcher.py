@@ -55,7 +55,7 @@ class Dispatcher(object):
                 list_of_medians = MedianCalculator(tweet_file)\
                     .run()
                 for median in list_of_medians:
-                    ft2_output.write(str(median) + "\n")
+                    ft2_output.write("{:.2f}".format(median) + "\n")
 
     def run_jobs(self):
         self.run_UniqueWordsCalculator()
