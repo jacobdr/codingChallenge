@@ -38,6 +38,14 @@ Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/ben
     - 100k_tweets
     - Dispathcer.run_Median
         + Dispathcer.run_Median
+* **v0.6**:
+    - 100k_tweets
+        + Dispatcher.run_Median
+            * 98.216 seconds 
+        + Dispatcher.run_Unique
+            * 17.694 seconds
+        + Dipatcher._run_jobs
+            * 117.778 seconds
 
 IMPROVEMNETS
 * Expanded test coverage
