@@ -1,10 +1,27 @@
-# Insight Coding Challenge -- Submission by Jacob Roberts
+# Insight codingChallenge -- Submission by Jacob Roberts
 
-## 
+## Summary
+The purpose of this project is to compute two basic features -- a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet -- from a given set of input tweets. 
+
+## Documentation
+[Read The Docs](http://codingchallenge.readthedocs.org/en/stable/)
+
+## Setup
+`git clone https://github.com/jacobdr/codingChallenge`
+`cd codingChallenge`
+`pip install -r requirements.txt`
+`source run.sh`
+
+## Testing  
+#### Preferred Method
+`nosetests`
+#### Verbose Output + PDB Debugging
+`py.test -vv --pdb`
 
 ## Development Diary
 * Step 1: Unit Tests - TDD
     - Duplicate the example listed on the [Insight challenge Github page](https://github.com/InsightDataScience/cc-example) so that our initial code fails
+    - Goal was to use the "Red, Green, Re-factor" Approach to development
 
 http://help.sentiment140.com/for-students
 
