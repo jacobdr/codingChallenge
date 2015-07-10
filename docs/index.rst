@@ -7,16 +7,18 @@ Welcome to codingChallenge's documentation!
 ===========================================
 
 Contents:
-
+ 
 .. toctree::
    :maxdepth: 2
-
-
-
+ 
+.. automodule:: SomeModuleName
+ 
+.. autoclass:: SomeClassName
+    :members:
+ 
 Indices and tables
 ==================
-
+ 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

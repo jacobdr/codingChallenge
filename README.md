@@ -4,7 +4,7 @@
 The purpose of this project is to compute two basic features -- a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet -- from a given set of input tweets. 
 
 ## Documentation
-[Read The Docs](http://codingchallenge.readthedocs.org/en/stable/)
+[Read The Docs](http://codingchallenge.readthedocs.org/en/master)
 
 ## Setup
 `git clone https://github.com/jacobdr/codingChallenge`
