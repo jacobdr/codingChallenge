@@ -39,6 +39,10 @@ Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/ben
     - Dispathcer.run_Median
         + Dispathcer.run_Median
 
+IMPROVEMNETS
+* Expanded test coverage
+* Pipeline testing 
 
 
 
+python setup.py install --user
