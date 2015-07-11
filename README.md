@@ -1,22 +1,24 @@
 # Insight codingChallenge -- Submission by Jacob Roberts
 
 ## Summary
-The purpose of this project is to compute two basic features -- a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet -- from a given set of input tweets. 
+The purpose of this project is to compute two features -- a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet -- from a given set of input tweets. 
 
 ## Documentation
 [Read The Docs](http://codingchallenge.readthedocs.org/en/master)
 
 ## Setup
-`git clone https://github.com/jacobdr/codingChallenge`
-`cd codingChallenge`
-`pip install -r requirements.txt`
-`source run.sh`
+```bash
+git clone https://github.com/jacobdr/codingChallenge
+cd codingChallenge
+pip install -r requirements.txt
+source run.sh
+```
 
 ## Testing  
-#### Preferred Method
-`nosetests`
-#### Verbose Output + PDB Debugging
-`py.test -vv --pdb`
+#### Preferred Method  
+`nosetests`  
+#### Verbose Output + PDB Debugging  
+`py.test -vv --pdb`  
 
 ## Development Diary
 * Step 1: Unit Tests - TDD
