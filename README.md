@@ -30,6 +30,8 @@ classes.
 
 It exposes a Dispatcher.run_jobs() instantiates each of the two feature creation classes (UniqueWordsCalculator and MedianCalculator) and calls their .run() methods. The return values from these .run() calls are then written to the feature output file.
 
+    Dispatcher(path_to_input_tweet_file, path_to_output_directory)
+    
     Initialization Arguments:
 
     path_to_input_tweet_file (file descriptor, or other iterable): Input file of tweets to create features for  
@@ -55,6 +57,11 @@ It exposes a Dispatcher.run_jobs() instantiates each of the two feature creation
         of the unique words as all tweets get procssed. This ft2.txt file gets written
         to the directory specified by the second argument when the Dispatcher() class
         is initiated
+
+    Examples:
+        Dispatcher("codingChallenge/benchmark/data/100k_tweets.txt", "codingChallenge/benchmark/output/")
+
+        Dispatcher("codingChallenge/benchmark/data/100k_tweets.txt", "codingChallenge/benchmark/output/").run_jobs()
 
 ###  UniqueWordsCalculator + MedianCalculator  
 Each of the above are implemented as a class that take only one argument in order to instantiate them, which is an iterable object. In the case of an input tweets.txt file, this iterable is a file descriptor created with an open() system call. They each expose a .run() method, which then call to whichever method is currently in vogue. The source code has not been cleaned of old implementations
