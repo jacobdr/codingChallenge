@@ -11,9 +11,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
  
-.. automodule:: SomeModuleName
- 
-.. autoclass:: SomeClassName
+.. autosummary::
+   :toctree: _autosummary
+
+   codingChallenge.dipatcher
+   codingChallenge.unique_words
+   codingChallenge.median_unique
+
+.. autoclass:: Dispatcher
     :members:
  
 Indices and tables
@@ -22,3 +27,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+* :ref `codingChallenge`

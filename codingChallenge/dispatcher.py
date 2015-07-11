@@ -5,6 +5,8 @@ from codingChallenge import UniqueWordsCalculator, MedianCalculator, constants
 
 class Dispatcher(object):
     """
+    .. autoclass:: Dispatcher
+
     This class is meant to coordinate the actions of the two feature creation
     classes.
 
@@ -35,6 +37,17 @@ class Dispatcher(object):
         to the directory specified by the second argument when the Dispatcher() class
         is initiated
 
+
+    .. function:: format_exception(etype, value, tb[, limit=None])
+
+   Format the exception with a traceback.
+
+   :param etype: exception type
+   :param value: exception value
+   :param tb: traceback object
+   :param limit: maximum number of stack frames to show
+   :type limit: integer or None
+   :rtype: list of strings
     """
     def __init__(self, path_to_input_tweet_file, path_to_output_directory):
         # Convert input file path to absolute as a sanity check
