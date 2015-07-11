@@ -5,7 +5,36 @@ from codingChallenge import UniqueWordsCalculator, MedianCalculator, constants
 
 class Dispatcher(object):
     """
-    This class is meant to coordinate the actions of the other two classes
+    This class is meant to coordinate the actions of the two feature creation
+    classes.
+
+    Initialization Arguments:
+
+    :param path_to_input_tweet_file: Input file of tweets to create features for
+    :type path_to_input_tweet_file: file descriptor or other iterable
+    :param path_to_output_directory: Directory to write the feature files to
+    :type path_to_output_directory: string, ideally absolute filepath
+
+    Methods:
+
+    run_jobs():
+        The only real important publicly accessible method. Calling run_jobs()
+        instantiates each of the two feature creation classes (UniqueWordsCalculator
+        and MedianCalculator) and calls their .run() methods. The return values from
+        these .run() calls are then written to the feature output file.
+
+    run_UniqueWordsCalculator():
+        Generates output for the ft1.txt file -- which is an alphabetical list
+        of unique words found in all of the input tweets and these words
+        corresponding counts. The ft1.txt file gets written to the directory
+        specificed by the second argument when the Dispatcher() class is initaited
+
+    run_MedianCalculator():
+        Generates output for the ft2.txt file -- which is a running median calculation
+        of the unique words as all tweets get procssed. This ft2.txt file gets written
+        to the directory specified by the second argument when the Dispatcher() class
+        is initiated
+
     """
     def __init__(self, path_to_input_tweet_file, path_to_output_directory):
         # Convert input file path to absolute as a sanity check
@@ -58,5 +87,11 @@ class Dispatcher(object):
                     ft2_output.write("{:.2f}".format(median) + "\n")
 
     def run_jobs(self):
+        """
+        The .run_jobs() method is the real workhorse of the API. It calls out to the
+        .run_UniqueWordsCalculator() and .run_MedianCalculator() methods, which in turn
+        instantiate the respective classes that generate the features, in addition to
+        handing the file I/O of reading tweets and writing the features
+        """
         self.run_UniqueWordsCalculator()
         self.run_MedianCalculator()
