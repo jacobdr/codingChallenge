@@ -133,6 +133,16 @@ Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/ben
         + Dipatcher._run_jobs
             * 117.778 seconds
 
+## Requirements + Environment
+### Requirements:
+* Python 2.7.x
+* Numpy
+```
+ProductName:    Mac OS X
+ProductVersion: 10.10
+BuildVersion:   14A389
+```
+
 ## Sources of Test Tweet Data:
 http://help.sentiment140.com/for-students
 
