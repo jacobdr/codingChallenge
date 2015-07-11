@@ -6,7 +6,7 @@ The purpose of this project is to compute two features -- a list of unique words
 ## Documentation
 [Read The Docs](http://codingchallenge.readthedocs.org/en/master)
 
-## Setup
+## Setup + Processing of Files from the input_text Directory
 ```bash
 git clone https://github.com/jacobdr/codingChallenge
 cd codingChallenge
@@ -22,17 +22,35 @@ source run.sh
 
 ## API
 ###  Dispatcher
-
 ###  UniqueWordsCalculator
-
 ###  MedianCalculator 
+
+## TODO Improvements For Future Versions
+*  Expanded test coverage:
+    - Currently, the only major tests provided are copied directly from the [cc-example respository](https://github.com/InsightDataScience/cc-example), with additional integration tests added to make sure that the Dispatcher() class successfully coordinated the other classes responsible for actually dealing with feature creation. Ideally in the future the testing suite would include better tests of edge cases, such as:
+        + Tweets of only one word or one letter
+        + Tweets with strange combinations of string delimiters, like single- and double-quotation marks
+*  Pipelining:
+    - The current implemenation treates each feature as a independent entities, so that the input tweets.txt file is read twice -- once by each class responsible for creating a feature. 
+    - A future version should try to benchmark a different implemntation that uses streaming updating, so that a tweet would first be passed to the UniqueWords calculator (which would update the word counts for words already seen, or append new words to the list), and then from there directly passed to the MedianCalculator
+    - Such an implementation would help reduce memory pressure and eliminate the overhead of file I/O, especially when it is redundant
+*  Threading:
+    -  Right now the Dispatcher.run_jobs() method runs sequentially. There is no reason for this since the operations are indepndent. With trivial effort this could be re-implemented using threading, so that the total run-time would be bound by the slower of the two processes, rather than the summation of the two proccesses' runtimes
+*  Median Calculation:
+    -  The median calculation methodology is taking much longer than I would like, and could stand to be improved by a better algorithm. A future developer might want to look into a min-max heap implementation, which might be more efficient than falling back on the iterative update used at present
 
 ## Development Diary
 * Step 1: Unit Tests - TDD
     - Duplicate the example listed on the [Insight challenge Github page](https://github.com/InsightDataScience/cc-example) so that our initial code fails
     - Goal was to use the "Red, Green, Re-factor" Approach to development
-
-http://help.sentiment140.com/for-students
+* Step 2: Python "Batteries Only" Version
+    - Initial versions of the two classes that calculate features used only standard python modules, largely the Collections() data structure. 
+* Step 3: Python profiling
+    - Used the Python "profile" module to understand which functions were contributing most to runtime
+    - Results of each version of the program can be found in the benchmarks/stats directory
+    - Input data was initally only 1k tweets, but as performance improved I moved to standardizing performance tests around the processing of 100k Tweets
+* Step 4: "Numpy-ing" The Code
+    - Numpy uses optimized C-code for efficient vector and matrix calculations -- though I utilized its features for efficient array creation, insertion, and summary statistic calculation
 
 ## Performance
 Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/benchmark/stats  
@@ -73,10 +91,8 @@ Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/ben
         + Dipatcher._run_jobs
             * 117.778 seconds
 
-IMPROVEMNETS
-* Expanded test coverage
-* Pipeline testing 
+## Sources of Test Tweet Data:
+http://help.sentiment140.com/for-students
 
 
 
-python setup.py install --user
