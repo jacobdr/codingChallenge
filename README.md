@@ -4,7 +4,7 @@
 The purpose of this project is to compute two features -- a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet -- from a given set of input tweets. 
 
 ## Documentation
-** CURRENTLY NOT IMPLEMENTED **
+** CURRENTLY NOT IMPLEMENTED **  
 [Read The Docs](http://codingchallenge.readthedocs.org/en/master)
 
 ## Setup + Processing of Files from the input_text Directory
@@ -28,7 +28,40 @@ __It should be noted that old implementaions of the UniqueWordsCalculator and Me
 This class is meant to coordinate the actions of the two feature creation
 classes.
 
-It exposes a  run_jobs() instantiates each of the two feature creation classes (UniqueWordsCalculator and MedianCalculator) and calls their .run() methods. The return values from these .run() calls are then written to the feature output file.
+It exposes a Dispatcher.run_jobs() instantiates each of the two feature creation classes (UniqueWordsCalculator and MedianCalculator) and calls their .run() methods. The return values from these .run() calls are then written to the feature output file.
+
+    Dispatcher(path_to_input_tweet_file, path_to_output_directory)
+    
+    Initialization Arguments:
+
+    path_to_input_tweet_file (file descriptor, or other iterable): Input file of tweets to create features for  
+    
+    path_to_output_directory (string, ideally absolute filepath): Directory to write the feature files to   
+
+    Methods:
+
+    run_jobs():
+        The only real important publicly accessible method. Calling run_jobs()
+        instantiates each of the two feature creation classes (UniqueWordsCalculator
+        and MedianCalculator) and calls their .run() methods. The return values from
+        these .run() calls are then written to the feature output file.
+
+    run_UniqueWordsCalculator():
+        Generates output for the ft1.txt file -- which is an alphabetical list
+        of unique words found in all of the input tweets and these words
+        corresponding counts. The ft1.txt file gets written to the directory
+        specificed by the second argument when the Dispatcher() class is initaited
+
+    run_MedianCalculator():
+        Generates output for the ft2.txt file -- which is a running median calculation
+        of the unique words as all tweets get procssed. This ft2.txt file gets written
+        to the directory specified by the second argument when the Dispatcher() class
+        is initiated
+
+    Examples:
+        Dispatcher("codingChallenge/benchmark/data/100k_tweets.txt", "codingChallenge/benchmark/output/")
+
+        Dispatcher("codingChallenge/benchmark/data/100k_tweets.txt", "codingChallenge/benchmark/output/").run_jobs()
 
 ###  UniqueWordsCalculator + MedianCalculator  
 Each of the above are implemented as a class that take only one argument in order to instantiate them, which is an iterable object. In the case of an input tweets.txt file, this iterable is a file descriptor created with an open() system call. They each expose a .run() method, which then call to whichever method is currently in vogue. The source code has not been cleaned of old implementations
