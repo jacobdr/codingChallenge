@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Insight codingChallenge – Submission by Jacob Roberts &mdash; codingChallenge 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="codingChallenge 1.0 documentation" href="#" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">codingChallenge 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="insight-codingchallenge-submission-by-jacob-roberts">
+<span id="insight-codingchallenge-submission-by-jacob-roberts"></span><h1>Insight codingChallenge &#8211; Submission by Jacob Roberts<a class="headerlink" href="#insight-codingchallenge-submission-by-jacob-roberts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<span id="summary"></span><h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of this project is to compute two features &#8211; a list of unique words and their respective frequencies, and a running median of the unique number of words per tweet &#8211; from a given set of input tweets.</p>
+</div>
+<div class="section" id="documentation">
+<span id="documentation"></span><h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://codingchallenge.readthedocs.org/en/master">Read The Docs</a></p>
+</div>
+<div class="section" id="setup-processing-of-files-from-the-input-text-directory">
+<span id="setup-processing-of-files-from-the-input-text-directory"></span><h2>Setup + Processing of Files from the input_text Directory<a class="headerlink" href="#setup-processing-of-files-from-the-input-text-directory" title="Permalink to this headline">¶</a></h2>
+<pre class="literal-block">
+git clone https://github.com/jacobdr/codingChallenge
+cd codingChallenge
+pip install -r requirements.txt
+source run.sh
+</pre>
+</div>
+<div class="section" id="testing">
+<span id="testing"></span><h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="preferred-method">
+<span id="preferred-method"></span><h3>Preferred Method<a class="headerlink" href="#preferred-method" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">nosetests</span></code></p>
+</div>
+<div class="section" id="verbose-output-pdb-debugging">
+<span id="verbose-output-pdb-debugging"></span><h3>Verbose Output + PDB Debugging<a class="headerlink" href="#verbose-output-pdb-debugging" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">py.test</span> <span class="pre">-vv</span> <span class="pre">--pdb</span></code></p>
+</div>
+</div>
+<div class="section" id="api">
+<span id="api"></span><h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dispatcher">
+<span id="dispatcher"></span><h3>Dispatcher<a class="headerlink" href="#dispatcher" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="uniquewordscalculator">
+<span id="uniquewordscalculator"></span><h3>UniqueWordsCalculator<a class="headerlink" href="#uniquewordscalculator" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="mediancalculator">
+<span id="mediancalculator"></span><h3>MedianCalculator<a class="headerlink" href="#mediancalculator" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="todo-improvements-for-future-versions">
+<span id="todo-improvements-for-future-versions"></span><h2>TODO Improvements For Future Versions<a class="headerlink" href="#todo-improvements-for-future-versions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Expanded test coverage:<ul>
+<li>Currently, the only major tests provided are copied directly from the <a class="reference external" href="https://github.com/InsightDataScience/cc-example">cc-example respository</a>, with additional integration tests added to make sure that the Dispatcher() class successfully coordinated the other classes responsible for actually dealing with feature creation. Ideally in the future the testing suite would include better tests of edge cases, such as:<ul>
+<li>Tweets of only one word or one letter</li>
+<li>Tweets with strange combinations of string delimiters, like single- and double-quotation marks</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pipelining:<ul>
+<li>The current implemenation treates each feature as a independent entities, so that the input tweets.txt file is read twice &#8211; once by each class responsible for creating a feature.</li>
+<li>A future version should try to benchmark a different implemntation that uses streaming updating, so that a tweet would first be passed to the UniqueWords calculator (which would update the word counts for words already seen, or append new words to the list), and then from there directly passed to the MedianCalculator</li>
+<li>Such an implementation would help reduce memory pressure and eliminate the overhead of file I/O, especially when it is redundant</li>
+</ul>
+</li>
+<li>Threading:<ul>
+<li>Right now the Dispatcher.run_jobs() method runs sequentially. There is no reason for this since the operations are indepndent. With trivial effort this could be re-implemented using threading, so that the total run-time would be bound by the slower of the two processes, rather than the summation of the two proccesses&#8217; runtimes</li>
+</ul>
+</li>
+<li>Median Calculation:<ul>
+<li>The median calculation methodology is taking much longer than I would like, and could stand to be improved by a better algorithm. A future developer might want to look into a min-max heap implementation, which might be more efficient than falling back on the iterative update used at present</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="development-diary">
+<span id="development-diary"></span><h2>Development Diary<a class="headerlink" href="#development-diary" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Step 1: Unit Tests - TDD<ul>
+<li>Duplicate the example listed on the <a class="reference external" href="https://github.com/InsightDataScience/cc-example">Insight challenge Github page</a> so that our initial code fails</li>
+<li>Goal was to use the &#8220;Red, Green, Re-factor&#8221; Approach to development</li>
+</ul>
+</li>
+<li>Step 2: Python &#8220;Batteries Only&#8221; Version<ul>
+<li>Initial versions of the two classes that calculate features used only standard python modules, largely the Collections() data structure.</li>
+</ul>
+</li>
+<li>Step 3: Python profiling<ul>
+<li>Used the Python &#8220;profile&#8221; module to understand which functions were contributing most to runtime</li>
+<li>Results of each version of the program can be found in the benchmarks/stats directory</li>
+<li>Input data was initally only 1k tweets, but as performance improved I moved to standardizing performance tests around the processing of 100k Tweets</li>
+</ul>
+</li>
+<li>Step 4: &#8220;Numpy-ing&#8221; The Code<ul>
+<li>Numpy uses optimized C-code for efficient vector and matrix calculations &#8211; though I utilized its features for efficient array creation, insertion, and summary statistic calculation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="performance">
+<span id="performance"></span><h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<p>Stats directory: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/benchmark/stats</p>
+<ul class="simple">
+<li><strong>v0.2:</strong><ul>
+<li>1k_tweets:<ul>
+<li>Dispatcher.run_jobs()<ul>
+<li>Time: 15.016 seconds</li>
+</ul>
+</li>
+<li>Dispatcher.run_Median<ul>
+<li>0.080 seconds</li>
+</ul>
+</li>
+<li>Dispatcher.run_Unique<ul>
+<li>15.273 seconds</li>
+</ul>
+</li>
+<li>Path: /Users/Jacob/Documents/Projects/DataInsight/codingChallenge/benchmark/stats/v0.2_1kTweets.txt</li>
+</ul>
+</li>
+<li>10k_tweets:<ul>
+<li>Unable to run</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+<li><strong>v0.3:</strong><ul>
+<li>1k_tweets:<ul>
+<li>Dispatcher.run_Unique<ul>
+<li>15.339 seconds</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>v0.4:</strong><ul>
+<li>100k_tweets<ul>
+<li>Dispatcher.run_Median<ul>
+<li>119.033 seconds</li>
+</ul>
+</li>
+<li>Dispatcher.run_Unique<ul>
+<li>18.454 seconds</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>v0.5:</strong><ul>
+<li>100k_tweets</li>
+<li>Dispathcer.run_Median<ul>
+<li>Dispathcer.run_Median</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>v0.6</strong>:<ul>
+<li>100k_tweets<ul>
+<li>Dispatcher.run_Median<ul>
+<li>98.216 seconds</li>
+</ul>
+</li>
+<li>Dispatcher.run_Unique<ul>
+<li>17.694 seconds</li>
+</ul>
+</li>
+<li>Dipatcher._run_jobs<ul>
+<li>117.778 seconds</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="sources-of-test-tweet-data">
+<span id="sources-of-test-tweet-data"></span><h2>Sources of Test Tweet Data:<a class="headerlink" href="#sources-of-test-tweet-data" title="Permalink to this headline">¶</a></h2>
+<p>http://help.sentiment140.com/for-students</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Insight codingChallenge &#8211; Submission by Jacob Roberts</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#setup-processing-of-files-from-the-input-text-directory">Setup + Processing of Files from the input_text Directory</a></li>
+<li><a class="reference internal" href="#testing">Testing</a><ul>
+<li><a class="reference internal" href="#preferred-method">Preferred Method</a></li>
+<li><a class="reference internal" href="#verbose-output-pdb-debugging">Verbose Output + PDB Debugging</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#dispatcher">Dispatcher</a></li>
+<li><a class="reference internal" href="#uniquewordscalculator">UniqueWordsCalculator</a></li>
+<li><a class="reference internal" href="#mediancalculator">MedianCalculator</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#todo-improvements-for-future-versions">TODO Improvements For Future Versions</a></li>
+<li><a class="reference internal" href="#development-diary">Development Diary</a></li>
+<li><a class="reference internal" href="#performance">Performance</a></li>
+<li><a class="reference internal" href="#sources-of-test-tweet-data">Sources of Test Tweet Data:</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Jacob Roberts.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="_sources/README.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
