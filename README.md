@@ -32,7 +32,8 @@ It exposes a Dispatcher.run_jobs() instantiates each of the two feature creation
 
     Initialization Arguments:
 
-     path_to_input_tweet_file (file descriptor, or other iterable): Input file of tweets to create features for  
+    path_to_input_tweet_file (file descriptor, or other iterable): Input file of tweets to create features for  
+    
     path_to_output_directory (string, ideally absolute filepath): Directory to write the feature files to   
 
     Methods:
